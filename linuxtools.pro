@@ -10,13 +10,16 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    src/mainwindow.cpp \
+    src/copyclipboard/copyclipboard.cpp \
+
 
 HEADERS += \
-    mainwindow.h
+    src/mainwindow.h \
+    src/copyclipboard/copyclipboard.h \
 
 FORMS += \
-    mainwindow.ui
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
