@@ -1,15 +1,40 @@
 #include "copyclipboard.h"
-/*
- * Use QWidget: This can act as your base window.
+#include "ui_copyclipboard.h"
+#include <QShortcut>
+#include <QEvent>
 
-Set Window Flags: Use setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint). This gives the window a lightweight, floating style, without a title bar or minimize/maximize buttons. Qt::Tool keeps it above the main window but does not force it to take focus.
-
-Manage Focus: To emulate the clipboard's behavior, connect the focusOutEvent to close or hide the window when it loses focus, making it disappear when you click away.
-
-Optional Styling: You can use QGraphicsDropShadowEffect for shadow effects to make it appear as a floating panel.
-*/
-copyclipboard::copyclipboard(QWidget *parent)
-    : QWidget{parent}
+copyClipboard::copyClipboard(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::copyClipboard)
 {
+    ui->setupUi(this);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint); // Make it floating and frameless
 
+    // Set focus policy to enable focusOutEvent
+    setFocusPolicy(Qt::StrongFocus);
+    ui->title->setAlignment(Qt::AlignCenter);
+}
+
+copyClipboard::~copyClipboard()
+{
+    delete ui;
+}
+
+void copyClipboard::showWindow()
+{
+    show();
+    activateWindow(); // Brings the window to the front
+    setFocus();       // Ensures the window has focus
+}
+
+void copyClipboard::focusOutEvent(QFocusEvent *event)
+{
+    QWidget::focusOutEvent(event);
+    hide(); // Hide the window when focus is lost
+}
+
+void copyClipboard::mousePressEvent(QMouseEvent *event)
+{
+    QWidget::mousePressEvent(event);
+    hide(); // Hide the window when mouse is clicked outside
 }

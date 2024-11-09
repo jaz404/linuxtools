@@ -19,6 +19,7 @@ HEADERS += \
     src/copyclipboard/copyclipboard.h \
 
 FORMS += \
+    ui/copyclipboard.ui \
     ui/mainwindow.ui
 
 # Default rules for deployment.

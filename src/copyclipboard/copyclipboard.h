@@ -2,14 +2,29 @@
 #define COPYCLIPBOARD_H
 
 #include <QWidget>
+#include <QFocusEvent>
+#include <QMouseEvent>
 
-class copyclipboard : public QWidget
+namespace Ui {
+class copyClipboard;
+}
+
+class copyClipboard : public QWidget
 {
     Q_OBJECT
-public:
-    explicit copyclipboard(QWidget *parent = nullptr);
 
-signals:
+public:
+    explicit copyClipboard(QWidget *parent = nullptr);
+    ~copyClipboard();
+    void setShortcutKey(QString key);
+    void showWindow();
+
+protected:
+    void focusOutEvent(QFocusEvent *event) override; // Declaring the override
+    void mousePressEvent(QMouseEvent *event) override; // Declaring the override
+
+private:
+    Ui::copyClipboard *ui;
 };
 
 #endif // COPYCLIPBOARD_H
